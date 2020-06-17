@@ -1,6 +1,7 @@
 package com.qf.cl.mapper;
 
 import com.qf.cl.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,11 @@ import java.util.List;
  */
 public interface UserMapper {
 
-    public List<User> selectUser();
+    List<User> selectUser();
+
+
+    User selectUserByIdAndPassword(@Param("name") String name, @Param("pwd")String pwd);
+
+    int insertUser(User user);
 
 }

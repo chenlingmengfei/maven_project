@@ -8,6 +8,17 @@
     <!--id = 所需重写的接口抽象方法，resultType = 查询后所需返回的对象类型-->
     <select id="selectUser" resultType="User">
         <!--#{arg0} = 方法的第一个形参-->
-        SELECT u_id as id,u_name as name,u_password as password FROM user
+        SELECT * FROM t_users
     </select>
+
+    <!-- 查询指定用户   -->
+    <select id="selectUserByIdAndPassword" resultType="user">
+        SELECT * FROM t_users
+            where name = #{name} and password = #{pwd}
+    </select>
+
+    <!-- 插入用户   -->
+    <insert id="insertUser" parameterType="user">
+        insert into t_users values(null,#{name},#{password},#{sex},#{birthday},#{registTime})
+    </insert>
 </mapper>
