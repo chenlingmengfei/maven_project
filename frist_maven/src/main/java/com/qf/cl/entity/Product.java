@@ -4,32 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 /**
- * ClassName: User
+ * ClassName: Product
  * Description:
  *
  * @author CL
  * @version 1.0
- * @date: 2020/6/16
+ * @date: 2020/6/17
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-
+public class Product {
 
     private Integer id;
 
     private String name;
 
-    private String password;
-
-    private String sex;
-
-    private Date birthday;
-
-    private Date registTime;
 
 }

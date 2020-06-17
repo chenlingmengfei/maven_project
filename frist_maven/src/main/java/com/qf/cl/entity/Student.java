@@ -1,35 +1,27 @@
 package com.qf.cl.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
 
 /**
- * ClassName: User
+ * ClassName: Student
  * Description:
  *
  * @author CL
  * @version 1.0
- * @date: 2020/6/16
+ * @date: 2020/6/17
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
-
+public class Student {
 
     private Integer id;
 
     private String name;
 
-    private String password;
-
     private String sex;
 
-    private Date birthday;
-
-    private Date registTime;
-
+    private List<Subject> subjectList;
 }

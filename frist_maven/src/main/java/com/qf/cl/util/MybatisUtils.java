@@ -31,6 +31,7 @@ public class MybatisUtils {
         }
     }
 
+    //打开sqlsession
     private static SqlSession openSession(){
         SqlSession session = sqlSessionList.get();
         if(session == null){

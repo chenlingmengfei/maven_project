@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.cl.mapper.DepartmentMapper">
+
+    <resultMap id="departmentResultMap" type="department">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="location" column="location"/>
+        <collection property="employeesList" ofType="employees">
+            <id property="id" column="eid"/>
+            <result property="name" column="ename"/>
+            <result property="salary" column="salary"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectDepartmentById" resultMap="departmentResultMap">
+        select td.id,td.name,td.location,te.id as eid,te.name as ename,te.salary
+        from t_department td inner join t_employees te on td.id=te.department_id where te.department_id = #{id}
+    </select>
+
+
+
+
+</mapper>
