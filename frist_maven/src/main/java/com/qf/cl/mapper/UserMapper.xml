@@ -21,4 +21,12 @@
     <insert id="insertUser" parameterType="user">
         insert into t_users values(null,#{name},#{password},#{sex},#{birthday},#{registTime})
     </insert>
+
+    <update id="updateUser">
+        update t_users set name=#{name},password=#{password},sex=#{sex} where id=#{id}
+    </update>
+
+    <delete id="deleteUser">
+        delete from t_users where id=#{id}
+    </delete>
 </mapper>
