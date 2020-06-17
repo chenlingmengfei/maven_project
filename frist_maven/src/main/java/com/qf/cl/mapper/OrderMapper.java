@@ -1,5 +1,7 @@
 package com.qf.cl.mapper;
 
+import com.qf.cl.entity.Order;
+
 /**
  * ClassName: OrderMapper
  * Description:
@@ -9,4 +11,7 @@ package com.qf.cl.mapper;
  * @date: 2020/6/17
  */
 public interface OrderMapper {
+
+    public Integer insertOrder(Order order);
+
 }

@@ -1,5 +1,7 @@
 package com.qf.cl.mapper;
 
+import com.qf.cl.entity.Product;
+
 /**
  * ClassName: ProductMapper
  * Description:
@@ -11,6 +13,7 @@ package com.qf.cl.mapper;
 public interface ProductMapper {
 
 
+    int insertProduct(Product product);
 
 
 }

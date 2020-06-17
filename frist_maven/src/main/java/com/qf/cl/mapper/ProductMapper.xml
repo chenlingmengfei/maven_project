@@ -4,4 +4,13 @@
 
 <mapper namespace="com.qf.cl.mapper.ProductMapper">
 
+    <insert id="insertProduct" parameterType="product">
+
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+
+        insert into t_product values(#{id},#{name})
+
+    </insert>
 </mapper>
