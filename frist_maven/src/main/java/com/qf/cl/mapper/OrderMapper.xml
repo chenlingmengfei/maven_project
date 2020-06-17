@@ -4,6 +4,7 @@
 
 <mapper namespace="com.qf.cl.mapper.OrderMapper">
 
+
     <insert id="insertOrder" parameterType="order">
 
         <selectKey keyProperty="id" order="BEFORE" resultType="String">
