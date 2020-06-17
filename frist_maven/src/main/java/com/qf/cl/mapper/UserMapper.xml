@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace = 所需实现的接口全限定名-->
+<mapper namespace="com.qf.cl.mapper.UserMapper">
+
+    <!--id = 所需重写的接口抽象方法，resultType = 查询后所需返回的对象类型-->
+    <select id="selectUser" resultType="User">
+        <!--#{arg0} = 方法的第一个形参-->
+        SELECT u_id as id,u_name as name,u_password as password FROM user
+    </select>
+</mapper>
