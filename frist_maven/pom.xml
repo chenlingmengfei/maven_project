@@ -50,7 +50,7 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <!--                    <include>*.xml</include>&lt;!&ndash; 默认（新添加自定义则失效） &ndash;&gt;-->
+                    <include>*.xml</include><!-- 默认（新添加自定义则失效） -->
                     <include>**/*.xml</include><!-- 新添加 */代表1级目录 **/代表多级目录 -->
                 </includes>
                 <filtering>true</filtering>

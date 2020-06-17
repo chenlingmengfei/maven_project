@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.cl.mapper.SubjectMapper">
+
+    <resultMap id="subjectResultMap" type="subject">
+
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="grade" column="grade"/>
+        <collection property="studentList" ofType="student">
+            <id property="id" column="did"/>
+            <result property="name" column="dname"/>
+            <result property="sex" column="sex"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="selectById" resultMap="subjectResultMap">
+        select tj.id,tj.name,tj.grade,td.id as did,td.name as dname,td.sex
+        from t_subject tj inner join t_student_subject tdj
+        on tj.id=tdj.subject_id inner join t_student td
+        on td.id = tdj.student_id where tdj.subject_id = #{id}
+    </select>
+</mapper>

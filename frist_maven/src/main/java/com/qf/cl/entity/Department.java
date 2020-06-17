@@ -3,10 +3,10 @@ package com.qf.cl.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
 
 /**
- * ClassName: Passengers
+ * ClassName: Department
  * Description:
  *
  * @author CL
@@ -15,17 +15,14 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-public class Passengers {
+public class Department {
 
     private Integer id;
 
     private String name;
 
-    private String sex;
+    private String location;
 
-    private Date birthday;
-
-    private Passports passports;
-
+    List<Employees> employeesList;
 
 }

@@ -3,10 +3,10 @@ package com.qf.cl.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 /**
- * ClassName: Passengers
+ * ClassName: Employees
  * Description:
  *
  * @author CL
@@ -15,17 +15,14 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-public class Passengers {
+public class Employees {
 
     private Integer id;
 
     private String name;
 
-    private String sex;
+    private BigDecimal salary;
 
-    private Date birthday;
-
-    private Passports passports;
-
+    private Department department;
 
 }
