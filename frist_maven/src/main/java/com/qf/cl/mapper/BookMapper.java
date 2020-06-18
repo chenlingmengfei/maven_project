@@ -18,4 +18,6 @@ public interface BookMapper {
 
 
     Integer updateBookByCondition(Book book);
+
+    List<Book> queryAll(Integer[] array);
 }

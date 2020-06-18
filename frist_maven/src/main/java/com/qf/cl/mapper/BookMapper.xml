@@ -89,4 +89,12 @@
         where id = #{id}
     </update>
 
+    <!-- 动态sql之foreach   -->
+    <select id="queryAll" resultType="com.qf.cl.entity.Book">
+        select <include refid="common_clocum"/> from t_book where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
 </mapper>
