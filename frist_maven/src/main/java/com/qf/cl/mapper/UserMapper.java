@@ -1,7 +1,7 @@
 package com.qf.cl.mapper;
 
 import com.qf.cl.entity.User;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,15 +15,21 @@ import java.util.List;
  */
 public interface UserMapper {
 
+    @Select("SELECT * FROM t_users")
     List<User> selectUser();
 
 
+    @Select("SELECT * FROM t_users\n" +
+            "            where name = #{name} and password = #{pwd}")
     User selectUserByIdAndPassword(@Param("name") String name, @Param("pwd")String pwd);
 
+    @Insert("insert into t_users values(null,#{name},#{password},#{sex},#{birthday},#{registTime})")
     int insertUser(User user);
 
+    @Update("update t_users set name=#{name},password=#{password},sex=#{sex} where id=#{id}")
     int updateUser(User user);
 
+    @Delete("delete from t_users where id=#{id}")
     int deleteUser(Integer id);
 
 }
