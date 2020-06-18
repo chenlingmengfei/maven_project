@@ -5,6 +5,9 @@
 <!--namespace = 所需实现的接口全限定名-->
 <mapper namespace="com.qf.cl.mapper.UserMapper">
 
+    <!--开启二级缓存 -->
+    <cache/>
+
     <!--id = 所需重写的接口抽象方法，resultType = 查询后所需返回的对象类型-->
     <select id="selectUser" resultType="User">
         <!--#{arg0} = 方法的第一个形参-->

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.cl.mapper.BookMapper">
+
+    <sql id="common_clocum">
+        id,name,author,publish,sort
+    </sql>
+
+
+    <!--sql片段 -->
+<!--    <select id="selectBookByCondition" resultType="com.qf.cl.entity.Book">-->
+<!--        select <include refid="common_clocum"/> from t_book-->
+<!--    </select>-->
+
+    <!-- 动态sql之where标签   -->
+<!--    <select id="selectBookByCondition" resultType="com.qf.cl.entity.Book">-->
+<!--        select <include refid="common_clocum"/> from t_book-->
+<!--        <where>-->
+<!--            <if test="id != null">-->
+<!--                and id = #{id}-->
+<!--            </if>-->
+<!--            <if test="name != null">-->
+<!--                and name = #{name}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+    <!-- 动态sql之set标签  -->
+<!--    <update id="updateBookByCondition">-->
+<!--        update t_book-->
+<!--        <set>-->
+<!--            <if test="name != null and name != '' ">-->
+<!--                name = #{name},-->
+<!--            </if>-->
+<!--            <if test="author != null and author != '' ">-->
+<!--                author = #{author},-->
+<!--            </if>-->
+<!--            <if test="publish != null and publish != '' ">-->
+<!--                publish = #{publish},-->
+<!--            </if>-->
+<!--            <if test="sort != null and sort != '' ">-->
+<!--                sort = #{sort},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where id = #{id}-->
+<!--    </update>-->
+
+    <!-- 动态sql之trim ->where  -->
+    <select id="selectBookByCondition" resultType="com.qf.cl.entity.Book">
+        select <include refid="common_clocum"/> from t_book
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="author != null and author != '' ">
+                and author = #{author}
+            </if>
+            <if test="publish != null and publish != '' ">
+                and publish = #{publish}
+            </if>
+            <if test="sort != null and sort != '' ">
+                and sort = #{sort}
+            </if>
+        </trim>
+    </select>
+
+    <!-- 动态sql之trim ->set  -->
+    <update id="updateBookByCondition">
+        update t_book
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name != '' ">
+                name = #{name},
+            </if>
+            <if test="author != null and author != '' ">
+                author = #{author},
+            </if>
+            <if test="publish != null and publish != '' ">
+                publish = #{publish},
+            </if>
+            <if test="sort != null and sort != '' ">
+                sort = #{sort},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+</mapper>
