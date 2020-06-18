@@ -16,11 +16,11 @@ import java.util.List;
 public interface UserMapper {
 
     @Select("SELECT * FROM t_users")
-    List<User> selectUser();
+    List<User> selectUser(Integer id);
 
 
     @Select("SELECT * FROM t_users\n" +
-            "            where name = #{name} and password = #{pwd}")
+            "            where  name = #{name} and password = #{pwd}")
     User selectUserByIdAndPassword(@Param("name") String name, @Param("pwd")String pwd);
 
     @Insert("insert into t_users values(null,#{name},#{password},#{sex},#{birthday},#{registTime})")
