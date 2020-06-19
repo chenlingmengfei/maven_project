@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void selectUser() {
         System.out.println("find user ..... UserService");
-        userDao.selectUser();
+        //userDao.selectUser();
     }
 
     public UserDao getUserDao() {
