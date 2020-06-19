@@ -10,6 +10,7 @@
 
     <modules>
         <module>frist_maven</module>
+        <module>hello_spring</module>
     </modules>
 
     <packaging>pom</packaging>

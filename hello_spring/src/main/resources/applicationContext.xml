@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    <bean id="userDao" class="com.qf.cl.dao.impl.UserDaoImpl"/>-->
+
+<!--    <bean id="userService" class="com.qf.cl.service.impl.UserServiceImpl">-->
+<!--        <property name="userDao" ref="userDao"/>-->
+<!--    </bean>-->
+
+    <!-- 自动扫描   -->
+    <context:component-scan base-package="com.qf.cl"/>
+
+    <bean id="user" class="com.qf.cl.entity.User">
+        <property name="id" value="1"/>
+        <property name="password" value="123456"/>
+        <property name="age" value="18"/>
+        <property name="sex" value="M"/>
+        <property name="bornDate" value="2020/6/18"/>
+        <property name="hobbys">
+            <array>
+                <value>zg</value>
+                <value>sh</value>
+            </array>
+        </property>
+        <property name="phones">
+            <set>
+                <value>xiaomi</value>
+                <value>huawei</value>
+            </set>
+        </property>
+        <property name="names">
+            <list>
+                <value>zhangfei</value>
+                <value>liubei</value>
+            </list>
+        </property>
+        <property name="countries">
+            <map>
+                <entry key="zg" value="中国"/>
+                <entry key="sn" value="印度"/>
+            </map>
+        </property>
+        <property name="files">
+            <props>
+                <prop key="sh">上海</prop>
+                <prop key="bj">北京</prop>
+            </props>
+        </property>
+     </bean>
+
+</beans>
