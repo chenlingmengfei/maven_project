@@ -54,4 +54,12 @@
         </property>
      </bean>
 
+
+    <bean id="myFactory" class="com.qf.cl.factory.MyFactory"/>
+    <bean id="student" class="com.qf.cl.entity.Student">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="zhangfei"/>
+        <constructor-arg name="sex" value="M"/>
+        <constructor-arg name="age" value="12"/>
+    </bean>
 </beans>
