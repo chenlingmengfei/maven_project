@@ -39,6 +39,17 @@
 <!--            </list>-->
 <!--        </property>-->
         <property name="typeAliasesPackage" value="com.qf.cl.entity"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!--配置-->
@@ -92,4 +103,5 @@
         <aop:advisor advice-ref="txManager" pointcut-ref="pc"/>
     </aop:config>
 
+    <tx:annotation-driven transaction-manager="tx"/>
 </beans>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>书籍</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./font/font-awesome-4.7.0/css/font-awesome.min.css">
     <script src="./js/jquery-3.5.0.js"></script>
@@ -10,7 +10,7 @@
     <script src="./js/vue.js"></script>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="data">
     <nav class="navbar navbar-default navbar-inverse navbar-static-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -24,21 +24,11 @@
                 </div>
                 <button class="btn btn-warning" onclick="findBook()">搜索</button>
             </form>
-            <!--
-                在navbar中放按钮：navbar-btn
-             -->
-            <!--            <button class="btn btn-danger navbar-btn" style="float: left;">按钮</button>-->
             <button class="btn navbar-btn btn-primary" data-toggle="modal" data-target="#addBook">添加书籍</button>
         </div>
     </nav>
     <div class="row">
         <div class="col-xs-8 col-xs-push-2">
-            <!--
-                strip: 斑马线。
-               对于表格来说，写class的时候，首先写table.
-               table-bordered: 给表格加边框。
-                table-hover: 当鼠标划到数据的时候，背景颜色发生变化
-           -->
             <table class="table table-bordered table-hover table-striped" id="dataList">
                 <thead>
                 <tr>
@@ -67,6 +57,23 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="col-xs-8 col-xs-push-2">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="javascript:return void(0);" :pagenum="prePage" aria-label="Previous" onclick="pageinfo(this)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li v-for="i in totalPage"><a href="javascript:return void(0);" :pagenum="i" onclick="pageinfo(this)">{{i}}</a></li>
+                <li>
+                    <a href="javascript:return void(0);" :pagenum="nextPage" aria-label="Next" onclick="pageinfo(this)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <div class="modal" id="addBook" data-backdrop="static">
@@ -143,31 +150,45 @@
 </body>
 <script>
     var nv = new Vue({
-        el: '#dataList',
+        el: '#data',
         data: {
+            prePage:null,
+            nextPage:null,
             booklist:null,
+            totalPage:null,
+            pagenum:null
         }
     });
 
-    function showBook(){
+    function showBook(num){
         $.ajax({
-            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            url:'http://localhost:8080/hello_spring/bookServlet.bean',
             type:'post',
             dataType:'json',
             data:{
-                method:'showBook'
+                method:'showBook',
+                pagenum:num
             },
             success:function (_data) {
-                nv.booklist = _data;
+                nv.booklist = _data.list;
+                nv.prePage = _data.prePage;
+                nv.nextPage = _data.nextPage;
+                nv.totalPage = _data.pages;
+                nv.pagenum = _data.pageNum;
             }
         })
     };
-    showBook();
+    showBook(1);
+
+    function pageinfo(o) {
+        var pagenum = $(o).attr("pagenum");
+        showBook(pagenum);
+    }
 
     function deleteBook(o) {
         var id = $(o).attr('bookid');
         $.ajax({
-            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            url:'http://localhost:8080/hello_spring/bookServlet.bean',
             type:'post',
             dataType:'json',
             data:{
@@ -176,7 +197,7 @@
             },
             success:function (_data) {
                 if(_data.status == 1){
-                    showBook();
+                    showBook(nv.pagenum);
                 }
             }
         })
@@ -186,13 +207,13 @@
     function addBook(){
         var book = $("#book");
         $.ajax({
-            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            url:'http://localhost:8080/hello_spring/bookServlet.bean',
             type:'post',
             dataType:'json',
             data:book.serialize(),
             success:function (_data) {
                 if(_data.status == 1){
-                    showBook();
+                    showBook(nv.pagenum);
                     book.find('input[type!=hidden]').each(function () {
                         $(this).val('');
                     })
@@ -205,7 +226,7 @@
     function findBook() {
         var condition = $('#findbook');
         $.ajax({
-            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            url:'bookServlet.bean',
             type:'post',
             dataType:'json',
             data:condition.serialize(),
@@ -235,13 +256,13 @@
         var updateData = $('#updateData');
         var d = updateData.find('input[type!=hidden]');
         $.ajax({
-            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            url:'bookServlet.bean',
             type:'post',
             dataType:'json',
             data:updateData.serialize(),
             success:function (_data) {
                 if(_data.status == 1){
-                    showBook();
+                    showBook(nv.pagenum);
                     updateData.find('input[type!=hidden]').each(function () {
                         $(this).val('');
                     });

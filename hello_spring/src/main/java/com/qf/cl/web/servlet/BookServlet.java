@@ -1,10 +1,11 @@
 package com.qf.cl.web.servlet;
 
+import com.github.pagehelper.PageInfo;
 import com.qf.cl.entity.Book;
 import com.qf.cl.entity.DataInfo;
 import com.qf.cl.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,16 +16,20 @@ import java.util.List;
  * @version 1.0
  * @date: 2020/6/21
  */
-@Component("bookServlet")
+@Controller
 public class BookServlet extends BaseServlet{
 
     @Autowired
     private BookService bookService;
 
     //查询所有书籍
-    public void showBook(HttpServletResponse response){
-        List<Book> books = bookService.selectBookList();
-        sendJson(books,response);
+    public void showBook(HttpServletResponse response,HttpServletRequest request){
+
+        String pagenum = request.getParameter("pagenum");
+        PageInfo<Book> bookPageInfo = bookService.selectPageInfo(Integer.parseInt(pagenum));
+
+        //List<Book> books = bookService.selectBookList();
+        sendJson(bookPageInfo,response);
     }
 
     //删除书籍
@@ -57,7 +62,7 @@ public class BookServlet extends BaseServlet{
 
 
     //查找书籍
-    public void findBook(String bookname,HttpServletResponse response){
+    public void findBook(String bookname, HttpServletResponse response, HttpServletRequest request){
 
         List<Book> books = bookService.selectBookByName(bookname);
 

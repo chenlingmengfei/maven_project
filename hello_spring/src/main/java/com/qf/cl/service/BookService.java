@@ -1,5 +1,6 @@
 package com.qf.cl.service;
 
+import com.github.pagehelper.PageInfo;
 import com.qf.cl.entity.Book;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface BookService {
     List<Book> selectBookList();
 
     List<Book> selectBookByName(String bookname);
+
+    PageInfo<Book> selectPageInfo(Integer page);
 
     Integer addBook(Book book);
 

@@ -7,8 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hello_spring" />
+        <module name="hello_springmvc" />
         <module name="frist_maven" />
+        <module name="hello_spring" />
       </profile>
     </annotationProcessing>
   </component>

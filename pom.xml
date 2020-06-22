@@ -11,7 +11,9 @@
     <modules>
         <module>frist_maven</module>
         <module>hello_spring</module>
+        <module>hello_springmvc</module>
     </modules>
+
 
     <packaging>pom</packaging>
 </project>

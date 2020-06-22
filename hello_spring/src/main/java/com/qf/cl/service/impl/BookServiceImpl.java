@@ -1,10 +1,13 @@
 package com.qf.cl.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qf.cl.dao.BookMapper;
 import com.qf.cl.entity.Book;
 import com.qf.cl.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
@@ -22,6 +25,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> selectBookList() {
         return bookMapper.selectBookList();
+    }
+
+    public PageInfo<Book> selectPageInfo(Integer pagenum){
+        if(null == pagenum || 0 == pagenum){
+            PageHelper.startPage(1,2);
+        }else{
+            PageHelper.startPage(pagenum,2);
+        }
+
+        List<Book> books = selectBookList();
+
+        PageInfo<Book> pageInfo = new PageInfo(books);
+
+        return pageInfo;
     }
 
     @Override
@@ -43,4 +60,5 @@ public class BookServiceImpl implements BookService {
     public Integer UpdateBookById(Book book) {
         return bookMapper.updateBook(book);
     }
+
 }
