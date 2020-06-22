@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./font/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="./js/jquery-3.5.0.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-default navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">图书</a>
+            </div>
+            <!-- 在navbar中加表单，表单的class样式为：navbar-form -->
+            <form class="navbar-form navbar-right" action="javascript:void(0);" id="findbook">
+                <input name="method" value="findBook" hidden>
+                <div class="form-group">
+                    <input class="form-control" placeholder="书名" name="bookname">
+                </div>
+                <button class="btn btn-warning" onclick="findBook()">搜索</button>
+            </form>
+            <!--
+                在navbar中放按钮：navbar-btn
+             -->
+            <!--            <button class="btn btn-danger navbar-btn" style="float: left;">按钮</button>-->
+            <button class="btn navbar-btn btn-primary" data-toggle="modal" data-target="#addBook">添加书籍</button>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-xs-8 col-xs-push-2">
+            <!--
+                strip: 斑马线。
+               对于表格来说，写class的时候，首先写table.
+               table-bordered: 给表格加边框。
+                table-hover: 当鼠标划到数据的时候，背景颜色发生变化
+           -->
+            <table class="table table-bordered table-hover table-striped" id="dataList">
+                <thead>
+                <tr>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>出版社</th>
+                    <th>类型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="book in booklist">
+                    <td>{{book.name}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.publish}}</td>
+                    <td>{{book.sort}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#updateBook" :bookid="book.id" onclick="updateBook(this)">
+                            <i class="fa fa-edit"></i> 编辑
+                        </button>
+                        <button class="btn btn-sm btn-danger" :bookid="book.id" onclick="deleteBook(this)">
+                            <i class="fa fa-remove"></i> 删除
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal" id="addBook" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">添加书籍</h3>
+            </div>
+            <div class="modal-body">
+                <form action="javascript:void(0);" id="book">
+                    <input type="hidden" name="method" value="addBook">
+                    <div class="form-group">
+                        <label for="bookname">书名</label>
+                        <input type="text" class="form-control" autocomplete="off" id="bookname" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="author">作者</label>
+                        <input type="text" class="form-control" autocomplete="off" id="author" name="author">
+                    </div>
+                    <div class="form-group">
+                        <label for="publish">出版社</label>
+                        <input type="text" class="form-control" autocomplete="off" id="publish" name="publish">
+                    </div>
+                    <div class="form-group">
+                        <label for="sort">类型</label>
+                        <input type="text" class="form-control" autocomplete="off" id="sort" name="sort">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">关闭</button>
+                <button class="btn btn-primary" onclick="addBook()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="updateBook" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">修改书籍</h3>
+            </div>
+            <div class="modal-body">
+                <form action="javascript:void(0);" id="updateData">
+                    <input type="hidden" name="method" value="updateBook">
+                    <input type="hidden" name="id" id="bookid">
+                    <div class="form-group">
+                        <label for="update_name">书名</label>
+                        <input type="text" class="form-control" autocomplete="off" id="update_name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_author">作者</label>
+                        <input type="text" class="form-control" autocomplete="off" id="update_author" name="author">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_publish">出版社</label>
+                        <input type="text" class="form-control" autocomplete="off" id="update_publish" name="publish">
+                    </div>
+                    <div class="form-group">
+                        <label for="update_sort">类型</label>
+                        <input type="text" class="form-control" autocomplete="off" id="update_sort" name="sort">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">关闭</button>
+                <button class="btn btn-primary" onclick="updateBookById()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var nv = new Vue({
+        el: '#dataList',
+        data: {
+            booklist:null,
+        }
+    });
+
+    function showBook(){
+        $.ajax({
+            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            type:'post',
+            dataType:'json',
+            data:{
+                method:'showBook'
+            },
+            success:function (_data) {
+                nv.booklist = _data;
+            }
+        })
+    };
+    showBook();
+
+    function deleteBook(o) {
+        var id = $(o).attr('bookid');
+        $.ajax({
+            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            type:'post',
+            dataType:'json',
+            data:{
+                method:'deleteBook',
+                id:id
+            },
+            success:function (_data) {
+                if(_data.status == 1){
+                    showBook();
+                }
+            }
+        })
+    }
+
+
+    function addBook(){
+        var book = $("#book");
+        $.ajax({
+            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            type:'post',
+            dataType:'json',
+            data:book.serialize(),
+            success:function (_data) {
+                if(_data.status == 1){
+                    showBook();
+                    book.find('input[type!=hidden]').each(function () {
+                        $(this).val('');
+                    })
+                }
+            }
+        });
+        $("#addBook").modal('hide');
+    }
+
+    function findBook() {
+        var condition = $('#findbook');
+        $.ajax({
+            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            type:'post',
+            dataType:'json',
+            data:condition.serialize(),
+            success:function (_data) {
+                nv.booklist = _data;
+            }
+        });
+    };
+
+    function updateBook(o) {
+        var id = $(o).attr("bookid");
+        var updateData = $('#updateData');
+        var d = updateData.find('input[type!=hidden]');
+        var data = null;
+        nv.booklist.forEach(value =>{
+            if (value.id == id){
+                data = value;
+            }
+        });
+        $(d[0]).val(data.name);
+        $(d[1]).val(data.author);
+        $(d[2]).val(data.publish);
+        $(d[3]).val(data.sort);
+        $('#bookid').val(data.id);
+    }
+    function updateBookById() {
+        var updateData = $('#updateData');
+        var d = updateData.find('input[type!=hidden]');
+        $.ajax({
+            url:'${pageContext.servletContext.contextPath}/bookServlet.bean',
+            type:'post',
+            dataType:'json',
+            data:updateData.serialize(),
+            success:function (_data) {
+                if(_data.status == 1){
+                    showBook();
+                    updateData.find('input[type!=hidden]').each(function () {
+                        $(this).val('');
+                    });
+                    d.val('');
+                }
+            }
+        });
+        $("#updateBook").modal('hide');
+    }
+</script>
+</html>

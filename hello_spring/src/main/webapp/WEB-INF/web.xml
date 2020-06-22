@@ -4,4 +4,30 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <!--web.xml-->
+
+
+<!--  <servlet>-->
+<!--    <servlet-name>baseServlet</servlet-name>-->
+<!--    <servlet-class>com.qf.cl.web.servlet.BaseServlet</servlet-class>-->
+<!--  </servlet>-->
+
+
+
+  <servlet>
+    <servlet-name>DruidStatView</servlet-name>
+    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>DruidStatView</servlet-name>
+    <url-pattern>/druid/*</url-pattern>
+  </servlet-mapping>
+
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>baseServlet</servlet-name>-->
+<!--    <url-pattern>*.bean</url-pattern>-->
+<!--  </servlet-mapping>-->
+
 </web-app>

@@ -1,33 +1,35 @@
 package com.qf.cl.service.impl;
 
-import com.qf.cl.dao.UserDao;
+import com.qf.cl.dao.UserMapper;
+import com.qf.cl.entity.User;
 import com.qf.cl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author CL
  * @version 1.0
  * @date: 2020/6/19
  */
-@Service("userService")
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao userDao;
+
+    private UserMapper userDao;
 
 
     @Override
-    public void selectUser() {
-        System.out.println("find user ..... UserService");
-        //userDao.selectUser();
+    public List<User> selectUser() {
+        //System.out.println("find user ..... UserService");
+        return userDao.selectList();
     }
 
-    public UserDao getUserDao() {
+    public UserMapper getUserDao() {
         return userDao;
     }
 
-    public void setUserDao(UserDao userDao) {
+    public void setUserDao(UserMapper userDao) {
         this.userDao = userDao;
     }
 }
