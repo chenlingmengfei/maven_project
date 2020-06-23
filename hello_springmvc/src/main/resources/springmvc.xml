@@ -13,7 +13,19 @@
     <!-- 告知springmvc  哪些包中 存在 被注解的类 -->
     <context:component-scan base-package="com.qf.cl.controller"></context:component-scan>
     <!-- 注册注解开发驱动 -->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven>
+        <!-- 安装FastJson,转换器 -->
+        <mvc:message-converters>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <!-- 声明转换类型:json -->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!-- 视图解析器
          作用：1.捕获后端控制器的返回值="index"
               2.解析： 在返回值的前后 拼接 ==> "/index.jsp"
@@ -32,5 +44,17 @@
 
     <!--这个handler就是处理静态资源的处理方式：将请求转会到tomcat中名为default的Servlet-->
     <mvc:default-servlet-handler/>
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/bookController/**"/>
+            <bean class="com.qf.cl.interceptor.MyHandleInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    <!--异常解析-->
+    <bean class="com.qf.cl.execption.MyExecptionHandle"/>
 
 </beans>

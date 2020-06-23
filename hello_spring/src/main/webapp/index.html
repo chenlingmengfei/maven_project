@@ -246,9 +246,10 @@
         var updateData = $('#updateData');
         var d = updateData.find('input[type!=hidden]');
         $.ajax({
-            url:'http://localhost:8080/hello_spring/book?'+updateData.serialize(),
+            url:'http://localhost:8080/hello_spring/book',
             type:'put',
             dataType:'json',
+            data:updateData.serialize(),
             success:function (_data) {
                 if(_data.status == 1){
                     showBook(nv.pagenum);
