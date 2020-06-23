@@ -19,7 +19,8 @@
 <!--        <property name="userDao" ref="userDao"/>-->
 <!--    </bean>-->
 
-    <context:property-placeholder location="jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
 
 
     <!--Druid连接池-->
@@ -63,7 +64,9 @@
     <aop:aspectj-autoproxy/>
 
     <!-- 自动扫描   -->
-    <context:component-scan base-package="com.qf.cl"/>
+    <context:component-scan base-package="com.qf.cl" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
 
     <bean id="userService" class="com.qf.cl.service.impl.UserServiceImpl" autowire="byType"/>

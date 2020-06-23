@@ -28,7 +28,7 @@ import java.util.Set;
  * @version 1.0
  * @date: 2020/6/21
  */
-@WebServlet("*.bean")
+//@WebServlet("*.bean")
 public class BaseServlet extends HttpServlet {
 
     ApplicationContext applicationContext = null;

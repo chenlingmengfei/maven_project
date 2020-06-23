@@ -85,7 +85,6 @@
             </div>
             <div class="modal-body">
                 <form action="javascript:void(0);" id="book">
-                    <input type="hidden" name="method" value="addBook">
                     <div class="form-group">
                         <label for="bookname">书名</label>
                         <input type="text" class="form-control" autocomplete="off" id="bookname" name="name">
@@ -120,8 +119,7 @@
             </div>
             <div class="modal-body">
                 <form action="javascript:void(0);" id="updateData">
-                    <input type="hidden" name="method" value="updateBook">
-                    <input type="hidden" name="id" id="bookid">
+                    <input type="hidden" name="id" id="bookid" value="">
                     <div class="form-group">
                         <label for="update_name">书名</label>
                         <input type="text" class="form-control" autocomplete="off" id="update_name" name="name">
@@ -162,13 +160,9 @@
 
     function showBook(num){
         $.ajax({
-            url:'http://localhost:8080/hello_spring/bookServlet.bean',
-            type:'post',
+            url:'http://localhost:8080/hello_spring/book/'+num,
+            type:'get',
             dataType:'json',
-            data:{
-                method:'showBook',
-                pagenum:num
-            },
             success:function (_data) {
                 nv.booklist = _data.list;
                 nv.prePage = _data.prePage;
@@ -188,13 +182,9 @@
     function deleteBook(o) {
         var id = $(o).attr('bookid');
         $.ajax({
-            url:'http://localhost:8080/hello_spring/bookServlet.bean',
-            type:'post',
+            url:'http://localhost:8080/hello_spring/book/'+id,
+            type:'delete',
             dataType:'json',
-            data:{
-                method:'deleteBook',
-                id:id
-            },
             success:function (_data) {
                 if(_data.status == 1){
                     showBook(nv.pagenum);
@@ -207,7 +197,7 @@
     function addBook(){
         var book = $("#book");
         $.ajax({
-            url:'http://localhost:8080/hello_spring/bookServlet.bean',
+            url:'http://localhost:8080/hello_spring/book',
             type:'post',
             dataType:'json',
             data:book.serialize(),
@@ -226,8 +216,8 @@
     function findBook() {
         var condition = $('#findbook');
         $.ajax({
-            url:'bookServlet.bean',
-            type:'post',
+            url:'http://localhost:8080/hello_spring/book',
+            type:'get',
             dataType:'json',
             data:condition.serialize(),
             success:function (_data) {
@@ -256,10 +246,9 @@
         var updateData = $('#updateData');
         var d = updateData.find('input[type!=hidden]');
         $.ajax({
-            url:'bookServlet.bean',
-            type:'post',
+            url:'http://localhost:8080/hello_spring/book?'+updateData.serialize(),
+            type:'put',
             dataType:'json',
-            data:updateData.serialize(),
             success:function (_data) {
                 if(_data.status == 1){
                     showBook(nv.pagenum);
