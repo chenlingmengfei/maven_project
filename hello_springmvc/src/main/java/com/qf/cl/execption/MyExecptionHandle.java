@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @date: 2020/6/23
  */
+//错误解析器
 public class MyExecptionHandle implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {

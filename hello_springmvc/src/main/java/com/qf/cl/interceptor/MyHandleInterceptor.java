@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @date: 2020/6/23
  */
+//拦截器
 public class MyHandleInterceptor implements HandlerInterceptor {
 
     @Override
